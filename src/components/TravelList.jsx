@@ -1,14 +1,19 @@
 import { useState } from "react";
 import travelPlans from "../assets/travel-plans.json";
 
-//const[travelPlan, setTravelPlan] = useState(travelPlans)
-
 
 
 function TravelList() {
+    const[travelPlan, setTravelPlan] = useState(travelPlans)
+const handleDelete = (index)=>{
+    const clonedList=structuredClone(travelPlan)
+    clonedList.splice(index,1)
+    setTravelPlan(clonedList)
+}
+
   return (
     <>
-      {travelPlans.map((x) => {
+      {travelPlan.map((x,index) => {
         return(
         <div className="card">
           <div className="imgContainer">
@@ -28,7 +33,7 @@ function TravelList() {
                 <div className="label greatDeal" style={{ display: x.totalCost<350 ? "block" : "none" }}>Great Deal</div>
             </div>
           </div>
-          
+          <button onClick={()=>{handleDelete(index)}}>Delete</button>
         </div>)
 
       })}
